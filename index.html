@@ -2,6 +2,7 @@
 
 <head>
 <title>Busy.org bot check</title>
+<script src="https://unpkg.com/vue"></script>
 </head>
     <body>
 
@@ -21,6 +22,11 @@
 <br>
 
 <p style="font-size:18px;">Requirements for Busy boost vote, data from https://github.com/busyorg/busy-robot/blob/master/events/vote.js</p>
+<div id="vueapp">
+  URL: <input type="text" size="75" v-model.trim="url" v-on:keyup.enter="xhr">
+  <button v-on:click="xhr">XHR Get Requirements page</button><br>
+  <pre>{{ info }}</pre>
+</div>
 <p style="font-size:18px;">Current MIN_VESTS converted in SP :</p> 
 <p style="font-size:18px;">Current MAX_VESTS converted in SP :</p>
 <br>
@@ -43,6 +49,35 @@ document.getElementById('hidingbutton').disabled = true;
         },3000);
 };
 
+'use strict';
+
+new Vue({
+  el: '#vueapp',
+  data: {
+    url: "https://github.com/busyorg/busy-robot/blob/master/events/vote.js#L14-L15",
+    info: ""
+  },
+  methods: {
+    xhr: function() {
+      this.info = "Requesting ...";
+      var rq = new XMLHttpRequest();
+
+      rq.onreadystatechange = function(vm) {
+        if (this.readyState === XMLHttpRequest.DONE) {
+          if (this.status === 200) {
+            vm.info = this.responseText;
+          } else {
+            vm.info = "Request Failed";
+          }
+        }
+      }.bind(rq, this);
+
+      rq.open("GET", this.url);
+      rq.send();
+    }
+  }
+})
+	
 </script>
 <noscript>Sorry, your browser does not support JavaScript!</noscript>
 </body>
