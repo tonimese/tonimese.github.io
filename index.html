@@ -6,29 +6,13 @@
 </head>
     <body>
 
-        <p style="margin-left:10px; font-size:20px;">to check if your account is eligible for Busy boost vote, enter your Steem username and click Submit </p>
-	<input style="font-size:24px" id="username" type="text">
-        <input style="font-size:24px" id="hidingbutton" type="button" onclick="check()" value="Submit">
-
-
-<p style="font-size:28px;">Your account is/isn't eligible for Busy vote.</p>
-<p style="font-size:22px;">Estimated vote value : $</p>
-<br>
-
-<p style="font-size:18px;">User info from: https://steemdb.com/api/accounts?account=username</p>
-<p style="font-size:18px;">Username :</p>
-<p style="font-size:18px;">Followers count :</p>
-<p style="font-size:18px;">Followers SP :</p>
-<br>
-
 <p style="font-size:18px;">Requirements for Busy boost vote, data from https://github.com/busyorg/busy-robot/blob/master/events/vote.js</p>
 <div id="vueapp">
   URL: <input type="text" size="75" v-model.trim="url" v-on:keyup.enter="xhr">
   <button v-on:click="xhr">XHR Get Requirements page</button><br>
   <pre>{{ info }}</pre>
 </div>
-<p style="font-size:18px;">Current MIN_VESTS converted in SP :</p> 
-<p style="font-size:18px;">Current MAX_VESTS converted in SP :</p>
+
 <br>
 
 <p style="font-size:18px;">Is the Busy bot active now?</p>
@@ -39,8 +23,6 @@
 <p style="font-size:18px;">Use one of these links to delegate 50, 100, 200, 400 or 1000 SP to Busy bot.</p>
 
 <script>
-var username = "fabien";
-
 
 function check() {
 document.getElementById('hidingbutton').disabled = true;
@@ -54,7 +36,7 @@ document.getElementById('hidingbutton').disabled = true;
 new Vue({
   el: '#vueapp',
   data: {
-    url: "https://github.com/busyorg/busy-robot/blob/master/events/vote.js#L14-L15",
+    url: "https://raw.githubusercontent.com/busyorg/busy-robot/master/events/vote.js",
     info: ""
   },
   methods: {
